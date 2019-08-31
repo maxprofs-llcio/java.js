@@ -1,0 +1,24 @@
+Build dependencies: GCC, C library headers, GNU Make, and a Lisp compiler.
+E.g. on Ubuntu "apt-get install gcc-multilib libc-dev make sbcl".
+
+Optionally, run "./configure".
+
+To build, type "make".  This will first build the bootstrap Forth by
+metacompiling the kernel for the C target, and then call gcc to
+generate an executable which runs under Linux, MacOS X, or Cygwin.
+
+The bootstrap metacompiler is written in Lisp.  An attempt is made to
+automatically detect an implementation, but if that fails you will
+have to provide some assistance.  Currently, CLISP, Clozure CL, ECL,
+and SBCL are supported.
+
+After the bootstrap Forth has been built, it will build the target
+Forth using the Forth metacompiler.  Subsequent builds will skip the
+bootstrap stage.
+
+By default, the C target will be built.  To build another target,
+define TARGET on the make command line.  Some targets also support
+different operating system hosts, which is specified with the OS make
+variable.  For example:
+
+    make TARGET=x86 OS=linux

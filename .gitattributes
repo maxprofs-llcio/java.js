@@ -1,0 +1,7 @@
+*                 text=auto
+*.sh              text eol=lf
+targets/c/*.fth   text eol=lf
+*.bat             text eol=crlf
+*.sln             text eol=crlf
+*.vcxproj         text eol=crlf
+packages.config   text eol=crlf

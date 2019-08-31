@@ -1,0 +1,9 @@
+platform:
+  - x86
+  - x64
+install:
+  - nuget restore
+build:
+  project: build.vcxproj
+artifacts:
+  - path: forth.exe

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="Build">
+    <CallTarget Targets="Install;Make" />
+  </Target>
+  <PropertyGroup>
+    <Packages>$(MSBuildProjectDirectory)\packages</Packages>
+    <Git>$(Packages)\PortableGit.2.5.1.01\tools\bin\git</Git>
+    <CygwinPath>$(Packages)\Cygwin.2.2.1.1\tools\bin</CygwinPath>
+    <LispPath>$(Packages)\ClozureCL.1.10.1\tools</LispPath>
+    <ToolsPath>$(CygwinPath);$(LispPath);$(Path)</ToolsPath>
+    <MetaCompiler>https://github.com/larsbrinkhoff/forth-metacompiler</MetaCompiler>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x86'">
+    <Cc>i686-pc-cygwin-gcc</Cc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+    <Cc>gcc</Cc>
+  </PropertyGroup>
+  <Target Name="Install">
+    <Exec Command="$(Git) clone $(MetaCompiler) lisp" />
+  </Target>
+  <Target Name="Make">
+    <Exec Command="set PATH=$(ToolsPath) &amp; cp targets/forth.mk targets/x86/forth.mk" />
+    <Exec Command="set PATH=$(ToolsPath) &amp; make TARGET=x86 OS=windows M32= CC=$(Cc)" />
+  </Target>
+</Project>
